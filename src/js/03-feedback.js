@@ -4,25 +4,34 @@ const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const message = document.querySelector('textarea');
 
-//const STORAGE = 'feedback-form-storage';
+const STORAGE = 'feedback-form-storage';
+let formData = {};
 
 function onInputSubmit(e) {
-    e.preventDefault();
-    const { elements: { email, message} } = e.currentTarget;
-    const formData = {
-        email: email.value,
-        message: message.value
+    e.preventDefault();    
+    
+    const target = e.currentTarget;
+    formData = {
+        email: target.email.value,
+        message: target.message.value
     };
     console.log(formData);
    
-    localStorage.setItem('feedback-form-storage', JSON.stringify(formData));
-    
-    //e.currentTarget.reset();
-    //localStorage.removeItem('feedback-form-storage');
+    localStorage.setItem(STORAGE, JSON.stringify(formData));
+}
+
+function onClearFormn(e) {
+    e.preventDefault();
+    const oldData = JSON.parse(localStorage.getItem(STORAGE));
+    if(oldData) {
+        e.currentTarget.reset();
+        localStorage.removeItem(STORAGE);
+    }
+
 }
 
 function onSetDataValues() {
-    const oldData = JSON.parse(localStorage.getItem('feedback-form-storage'));
+    const oldData = JSON.parse(localStorage.getItem(STORAGE));
     if(oldData) {
         input.value = oldData.email;
         message.value = oldData.message;
@@ -49,8 +58,10 @@ function onTextareaData(e) {
     console.log(textAreaMessage);
 }
 
-form.addEventListener('submit', onInputSubmit);
+form.addEventListener('input', onInputSubmit);
+form.addEventListener('submit', onClearFormn);
 message.addEventListener('input', throttle(onTextareaData, 500));
+onSetDataValues();
 
 
 
