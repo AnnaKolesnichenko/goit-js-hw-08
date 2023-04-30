@@ -9,7 +9,6 @@ const textarea = document.querySelector('textarea[name="message"]');
 
 
 const STORAGE = 'feedback-form-storage';
-//let formData = {};
 
 function checkForm(e) {
     const { elements: {email, message }} = e.currentTarget;    
@@ -26,16 +25,14 @@ function checkForm(e) {
 
 function onInputSubmit(e) {
     e.preventDefault();    
-    const { elements: {email, message }} = e.currentTarget;
-    
+    const { elements: {email, message }} = e.currentTarget;    
     const formData = {
         email: email.value,
         message: message.value
     };
     console.log(formData);   
     
-    localStorage.setItem(STORAGE, JSON.stringify(formData));
-    
+    localStorage.setItem(STORAGE, JSON.stringify(formData));    
 }
 
 function onClearFormn(e) {
@@ -45,7 +42,6 @@ function onClearFormn(e) {
         e.currentTarget.reset();
         localStorage.removeItem(STORAGE);
     }
-
 }
 
 function onSetDataValues() {
