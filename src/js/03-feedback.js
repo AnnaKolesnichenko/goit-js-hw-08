@@ -17,7 +17,13 @@ function onInputSubmit(e) {
     };
     console.log(formData);
    
-    localStorage.setItem(STORAGE, JSON.stringify(formData));
+    if(!formData.email || !formData.message) {
+        alert("There is not enough data for the form to be processed");
+        return;
+    } else {
+        localStorage.setItem(STORAGE, JSON.stringify(formData));
+    }
+    
 }
 
 function onClearFormn(e) {

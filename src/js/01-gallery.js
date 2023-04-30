@@ -33,15 +33,12 @@ cardsGallery.insertAdjacentHTML('beforeend', cardsOfGallery);
      lightbox.open();
 }*/
 
-function preventLoad(e) {
-    e.preventDefault();
-}
 
-cardsGallery.addEventListener('click', (e) => {
-    preventLoad(e);
-    const lightbox = new SimpleLightbox('.gallery__item a', 
-     {captionDelay: 250, enableKeyboard: true, captionsData: 'alt', captions: true});
+cardsGallery.addEventListener('click', 
+    //preventLoad(e);
+    new SimpleLightbox('.gallery__item a', 
+     {captionDelay: 250, enableKeyboard: true, captionsData: 'alt', captions: true})
      
-});
+);
 
 
