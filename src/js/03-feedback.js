@@ -4,25 +4,37 @@ const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const message = document.querySelector('textarea');
 
+const email = document.querySelector('input[name="email"]'); 
+const textarea = document.querySelector('textarea[name="message"]');
+
+
 const STORAGE = 'feedback-form-storage';
-let formData = {};
+//let formData = {};
+
+function checkForm(e) {
+    const { elements: {email, message }} = e.currentTarget;    
+    const data = {
+        email: email.value,
+        message: message.value
+    };
+
+    if(email.value === '' || textarea.value === '') {
+        alert("There is not enough data for the form to be processed");
+        return;
+    }  
+}
 
 function onInputSubmit(e) {
     e.preventDefault();    
+    const { elements: {email, message }} = e.currentTarget;
     
-    const target = e.currentTarget;
-    formData = {
-        email: target.email.value,
-        message: target.message.value
+    const formData = {
+        email: email.value,
+        message: message.value
     };
-    console.log(formData);
-   
-    if(!formData.email || !formData.message) {
-        alert("There is not enough data for the form to be processed");
-        return;
-    } else {
-        localStorage.setItem(STORAGE, JSON.stringify(formData));
-    }
+    console.log(formData);   
+    
+    localStorage.setItem(STORAGE, JSON.stringify(formData));
     
 }
 
@@ -64,6 +76,7 @@ function onTextareaData(e) {
     console.log(textAreaMessage);
 }
 
+form.addEventListener('submit', checkForm);
 form.addEventListener('input', onInputSubmit);
 form.addEventListener('submit', onClearFormn);
 message.addEventListener('input', throttle(onTextareaData, 500));
