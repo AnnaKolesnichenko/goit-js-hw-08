@@ -10,7 +10,7 @@ const textarea = document.querySelector('textarea[name="message"]');
 
 const STORAGE = 'feedback-form-storage';
 
-function checkForm(e) {
+/*function checkForm(e) {
     const { elements: {email, message }} = e.currentTarget;    
     const data = {
         email: email.value,
@@ -21,7 +21,7 @@ function checkForm(e) {
         alert("There is not enough data for the form to be processed");
         return;
     }  
-}
+}*/
 
 function onInputSubmit(e) {
     e.preventDefault();    
@@ -29,9 +29,15 @@ function onInputSubmit(e) {
     const formData = {
         email: email.value,
         message: message.value
-    };       
-    localStorage.setItem(STORAGE, JSON.stringify(formData));  
-    console.log(formData);  
+    };   
+    
+    if(email.value === '' || textarea.value === '') {
+        alert("There is not enough data for the form to be processed");
+        return;
+    } else {
+        localStorage.setItem(STORAGE, JSON.stringify(formData));  
+        console.log(formData);
+    }  
 }
 
 function onClearFormn(e) {
@@ -51,27 +57,11 @@ function onSetDataValues() {
     }
 }
 
-/*function onInputData() {
-    const inputValueData = JSON.parse(localStorage.getItem('feedback-form-state'));
-    if(inputValueData) {
-        input.value = inputValueData;
-    }
-}
-
-function getTeaxtareaData() {
-    const message = document.querySelector('textarea');
-    const txtarmessage = JSON.parse(localStorage.getItem('feedback-form-state'));
-    if(txtarmessage) {
-        message.value = txtarmessage;
-    }
-}*/
-
 /*function onTextareaData(e) {
     const textAreaMessage = e.target.value;
     console.log(textAreaMessage);
 }*/
 
-form.addEventListener('submit', checkForm);
 form.addEventListener('submit', onInputSubmit);
 form.addEventListener('submit', onClearFormn);
 //message.addEventListener('input', throttle(onTextareaData, 500));
