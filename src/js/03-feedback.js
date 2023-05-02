@@ -29,10 +29,9 @@ function onInputSubmit(e) {
     const formData = {
         email: email.value,
         message: message.value
-    };
-    console.log(formData);   
-    
-    localStorage.setItem(STORAGE, JSON.stringify(formData));    
+    };       
+    localStorage.setItem(STORAGE, JSON.stringify(formData));  
+    console.log(formData);  
 }
 
 function onClearFormn(e) {
@@ -67,15 +66,15 @@ function getTeaxtareaData() {
     }
 }*/
 
-function onTextareaData(e) {
+/*function onTextareaData(e) {
     const textAreaMessage = e.target.value;
     console.log(textAreaMessage);
-}
+}*/
 
 form.addEventListener('submit', checkForm);
-form.addEventListener('input', onInputSubmit);
+form.addEventListener('submit', onInputSubmit);
 form.addEventListener('submit', onClearFormn);
-message.addEventListener('input', throttle(onTextareaData, 500));
+//message.addEventListener('input', throttle(onTextareaData, 500));
 onSetDataValues();
 
 
