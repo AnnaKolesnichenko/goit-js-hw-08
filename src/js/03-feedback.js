@@ -11,13 +11,12 @@ const textarea = document.querySelector('textarea[name="message"]');
 const STORAGE = 'feedback-form-storage';
 
 function onCheckForm(e) {
-    const { elements: {email, message }} = e.currentTarget;    
     const data = {
         email: email.value,
         message: message.value
     };
 
-    if(email.value === '' || textarea.value === '') {
+    if(email.value === '' || message.value === '') {
         alert("There is not enough data for the form to be processed");
         return;
     }  
@@ -26,16 +25,14 @@ function onCheckForm(e) {
 
 function onInputSubmit(e) {
     e.preventDefault();    
-    const { elements: {email, message }} = e.currentTarget;    
     const formData = {
         email: email.value,
-        message: message.value
+        message: textarea.value
     };       
     localStorage.setItem(STORAGE, JSON.stringify(formData));  
-    console.log(formData);
 }
 
-function onClearFormn(e) {
+function onClearForm(e) {
     e.preventDefault();
     const oldData = JSON.parse(localStorage.getItem(STORAGE));
     if(oldData) {
@@ -52,15 +49,10 @@ function onSetDataValues() {
     }
 }
 
-/*function onTextareaData(e) {
-    const textAreaMessage = e.target.value;
-    console.log(textAreaMessage);
-}*/
 
 form.addEventListener('submit', onCheckForm);
-form.addEventListener('submit', onInputSubmit);
-form.addEventListener('submit', onClearFormn);
-//message.addEventListener('input', throttle(onTextareaData, 500));
+form.addEventListener('input', throttle(onInputSubmit, 500));
+form.addEventListener('submit', onClearForm);
 onSetDataValues();
 
 
